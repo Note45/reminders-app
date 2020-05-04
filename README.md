@@ -1,5 +1,5 @@
 # Reminders
-It's an TO-DO list app created with React Native and Expo.
+It's a TO-DO list app created with React Native and Expo.
 
 # Description
 The project is a TO-DO list app, where the user can add, remove and update reminders.
