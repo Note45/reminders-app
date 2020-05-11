@@ -1,10 +1,31 @@
-import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, View, TextInput, TouchableOpacity, Image } from 'react-native'
+
+import iconCheckmark from '../../assets/icon-checkmark.png'
+import iconCancel from '../../assets/icon-cancel.png'
 
 export default function AddReminder({ navigation }) {
+  const [inputTextValue, setInputTextValue] = useState('');
+
   return(
     <View style={styles.container}>
-      <Text>Page AddReminder</Text>
+      <View style={styles.container}>
+        <TextInput 
+          style={styles.textReminder} 
+          onChangeText={text => setInputTextValue(text)}
+          value={inputTextValue} 
+        />
+
+        <View style={styles.containerButtons}>
+          <TouchableOpacity>
+            <Image source={iconCheckmark} style={styles.iconButton}/>
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <Image source={iconCancel} style={styles.iconButton}/>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   )
 }
@@ -14,6 +35,30 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F0F0F0'
+    backgroundColor: '#F0F0F0',
+    width: '100%'
+  },
+  textReminder: {
+    width: '96%',
+    height: 100,
+    borderColor: '#707070',
+    borderWidth: 3,
+    borderRadius: 13,
+    fontSize: 25, 
+    padding: 10,
+  },
+  containerButtons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '98%',
+    height: 120,
+    margin: 10,
+    padding: 10
+  },
+  iconButton: {
+    margin: 30,
+    height: 80,
+    width: 80
   }
 })
