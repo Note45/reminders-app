@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
 
 import circleAddIcon from '../../assets/icon-add-circle.png'
 
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     height: 80
   },
   iconSize: {
-    height: 70,
-    width: 70,
+    height: 85,
+    width: 85,
   }  
 })
