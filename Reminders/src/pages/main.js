@@ -1,9 +1,27 @@
-import React from 'react'
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, View, Image, Text, TouchableOpacity, AsyncStorage } from 'react-native'
 
 import circleAddIcon from '../../assets/icon-add-circle.png'
 
 export default function Main({ navigation }) {
+  const [savedData, setSavedData] = useState(null)
+
+  async function getDataSaved() {
+    try {
+      let keys = await AsyncStorage.getAllKeys()
+      
+      if(keys !== null) {
+        setSavedData(keys)
+      }
+    }catch(error) {
+      alert('Error showing reminders')
+    }
+  }
+  
+  useEffect(() => {
+    getDataSaved()
+  })
+
   return(
     <View style={styles.container}>
       <TouchableOpacity style={styles.buttonAdd} onPress={() => navigation.navigate('AddReminder')}>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, TextInput, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, View, TextInput, TouchableOpacity, Image, AsyncStorage } from 'react-native'
 
 import iconCheckmark from '../../assets/icon-checkmark.png'
 import iconCancel from '../../assets/icon-cancel.png'
@@ -7,8 +7,20 @@ import iconCancel from '../../assets/icon-cancel.png'
 export default function InputReminder({ navigation }) {
   const [inputTextValue, setInputTextValue] = useState('');
 
+  async function saveData(data) {
+    if(data === '') {
+      return
+    }else {
+      try{
+        await AsyncStorage.setItem(data, data)
+      }catch(error) {
+        alert('Error recording reminder')
+      }
+    }
+  }
+
   return(
-    <View>
+    <View style={styles.container}>
       <TextInput 
         style={styles.textReminder} 
         onChangeText={text => setInputTextValue(text)}
@@ -16,7 +28,10 @@ export default function InputReminder({ navigation }) {
       />
 
       <View style={styles.containerButtons}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          saveData(inputTextValue.toString())
+          navigation.navigate('Main')
+        }}>
           <Image source={iconCheckmark} style={styles.iconButton}/>
         </TouchableOpacity>
 
@@ -37,7 +52,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   textReminder: {
-    width: 'auto',
+    width: '96%',
     height: 100,
     borderColor: '#707070',
     borderWidth: 3,
