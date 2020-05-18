@@ -1,36 +1,43 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Image, Text, TouchableOpacity, AsyncStorage } from 'react-native'
+import { StyleSheet, View, Image, TouchableOpacity, AsyncStorage } from 'react-native'
 
 import ReminderList from '../components/ReminderList'
 
 import circleAddIcon from '../../assets/icon-add-circle.png'
+import circleRemoveIcon from '../../assets/icon-cancel.png'
 
 export default function Main({ navigation }) {
   const [savedData, setSavedData] = useState([ ])
-
-  async function getDataSaved() {
-    try {
-      let keys = await AsyncStorage.getAllKeys()
-      
-      if(keys !== null) {
-        setSavedData(keys)
-      }
-    }catch(error) {
-      alert('Error showing reminders')
-    }
-  }
   
   useEffect(() => {
+    async function getDataSaved() {
+      try {
+        let keys = await AsyncStorage.getAllKeys()
+        
+        if(keys !== null) {
+          setSavedData(keys)
+        }
+      }catch(error) {
+        alert('Error showing reminders')
+      }
+    }
+    
     getDataSaved()
-  })
+  }, [])
 
   return(
-    <View style={styles.container}>
+    <View style={styles.container}>  
       <ReminderList Reminders={savedData} />
 
-      <TouchableOpacity style={styles.buttonAdd} onPress={() => navigation.navigate('AddReminder')}>
-        <Image source={circleAddIcon} style={styles.iconSize}></Image>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate('AddReminder')}>
+          <Image source={circleAddIcon} style={styles.iconButtons}></Image>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Image source={circleRemoveIcon} style={styles.iconButtons}></Image>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -38,21 +45,17 @@ export default function Main({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: '#F0F0F0',
-    width: '100%'
   },
-  buttonAdd: {
-    position: 'absolute',
-    bottom: 60,
-    alignItems: 'flex-end',
-    padding: 30,
-    width: '100%',
-    height: 80
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 'auto',
   },
-  iconSize: {
-    height: 85,
-    width: 85,
+  iconButtons: {
+    marginHorizontal: 50,
+    height: 60,
+    width: 60,
   }  
 })
