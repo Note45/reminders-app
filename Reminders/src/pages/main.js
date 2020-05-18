@@ -23,7 +23,7 @@ export default function Main({ navigation }) {
     }
     
     getDataSaved()
-  }, [])
+  })
 
   return(
     <View style={styles.container}>  
@@ -34,7 +34,7 @@ export default function Main({ navigation }) {
           <Image source={circleAddIcon} style={styles.iconButtons}></Image>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => AsyncStorage.clear()}>
           <Image source={circleRemoveIcon} style={styles.iconButtons}></Image>
         </TouchableOpacity>
       </View>
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
   },
   iconButtons: {
     marginHorizontal: 50,
+    marginVertical: 15,
     height: 60,
     width: 60,
   }  
