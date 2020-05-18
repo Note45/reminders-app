@@ -1,14 +1,22 @@
 import React from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, Image, AsyncStorage } from 'react-native'
 
 import trashIcon from '../../assets/icon-trash.png'
 
 export default function Reminder({ title }) {
+  async function deleteReminder() {
+    try{
+      await AsyncStorage.removeItem(title.toString())
+    }catch(error) {
+      alert(error)
+    }
+  }
+
   return(
     <View style={styles.containerReminder}>
       <Text>{title}</Text>
 
-      <TouchableOpacity style={styles.buttonDelete}>
+      <TouchableOpacity style={styles.buttonDelete} onPress={async () => deleteReminder()}>
         <Image source={trashIcon} style={styles.iconSize}/>
       </TouchableOpacity>
     </View>
