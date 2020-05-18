@@ -8,7 +8,12 @@ The project is a TO-DO list app, where the user can add, remove and update remin
 The project is all constructed with React Native and the Expo toolchain.
 
 # How the Project Is Currently
-In development...
+<p float='left'>
+  <img src='prints-project/1.jpeg' width='200'>
+  <img src='prints-project/2.jpeg' width='200'>
+  <img src='prints-project/3.jpeg' width='200'>
+  <img src='prints-project/4.jpeg' width='200'>
+</p>
 
 # License
 MIT License
